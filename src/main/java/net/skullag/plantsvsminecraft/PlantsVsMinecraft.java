@@ -2,6 +2,9 @@ package net.skullag.plantsvsminecraft;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.skullag.plantsvsminecraft.entity.ModEntities;
+import net.skullag.plantsvsminecraft.item.ModItemGroups;
+import net.skullag.plantsvsminecraft.item.ModItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +14,8 @@ public class PlantsVsMinecraft implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		LOGGER.info("Hello Fabric world!");
+		ModItemGroups.registerItemGroups();
+		ModItems.registerModItems();
+		ModEntities.registerEntities();
 	}
 }
