@@ -13,6 +13,8 @@ public class ModEntities {
             new Identifier(PlantsVsMinecraft.MOD_ID, "sunflower"), SunFlowerEntity.builder().build());
 
         public static void registerEntities () {
+            PlantsVsMinecraft.LOGGER.info("Registering Mod Entities for " + PlantsVsMinecraft.MOD_ID);
+
             FabricDefaultAttributeRegistry.register(SUNFLOWER, SunFlowerEntity.createSunFlowerAttributes());
         }
 }

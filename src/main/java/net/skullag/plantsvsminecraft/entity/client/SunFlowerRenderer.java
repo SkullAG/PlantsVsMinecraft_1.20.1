@@ -12,7 +12,7 @@ public class SunFlowerRenderer extends MobEntityRenderer<SunFlowerEntity, SunFlo
     private static final Identifier Texture = new Identifier(PlantsVsMinecraft.MOD_ID, "textures/entity/sunflower.png");
 
     public SunFlowerRenderer(EntityRendererFactory.Context context) {
-        super(context, new SunFlowerModel<>(context.getPart(ModModelLayers.SUNFLOWER)), 0.8f);
+        super(context, new SunFlowerModel<>(context.getPart(ModModelLayers.SUNFLOWER)), 0.4f);
     }
 
     @Override

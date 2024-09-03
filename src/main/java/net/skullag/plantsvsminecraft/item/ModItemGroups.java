@@ -12,8 +12,10 @@ import net.skullag.plantsvsminecraft.PlantsVsMinecraft;
 public class ModItemGroups {
     public static final ItemGroup PLANTS_GROUP = Registry.register(Registries.ITEM_GROUP
             , new Identifier(PlantsVsMinecraft.MOD_ID, "pvm_plants"),
-            FabricItemGroup.builder().displayName(Text.translatable("itemgroup.pvm_plants")).icon(() -> new ItemStack(ModItems.SunPoint)).entries((displayContext, entries) -> {
-                entries.add(ModItems.SunPoint);
+            FabricItemGroup.builder().displayName(Text.translatable("itemgroup.pvm_plants")).icon(() -> new ItemStack(ModItems.SUN_POINT)).entries((displayContext, entries) -> {
+                entries.add(ModItems.SUN_POINT);
+                entries.add(ModItems.NUTRIENT);
+                entries.add(ModItems.SUNFLOWER_SEED_PACK);
             }).build());
 
     public static void registerItemGroups () {

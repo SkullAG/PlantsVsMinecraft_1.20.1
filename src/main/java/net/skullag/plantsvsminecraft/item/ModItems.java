@@ -7,10 +7,14 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.skullag.plantsvsminecraft.PlantsVsMinecraft;
+import net.skullag.plantsvsminecraft.entity.ModEntities;
 
 public class ModItems {
+    public static final Item SUN_POINT = registerItem("sunpoint", new Item(new FabricItemSettings()));
+    public static final Item NUTRIENT = registerItem("nutrient", new Item(new FabricItemSettings()));
 
-    public static final Item SunPoint = registerItem("sunpoint", new Item(new FabricItemSettings()));
+    public static final Item SUNFLOWER_SEED_PACK = registerItem("sunflower_seed_pack",
+            new SeedPack(ModEntities.SUNFLOWER, new FabricItemSettings()));
 
     private static void addItemsToItemGroup(FabricItemGroupEntries entries, Item... items) {
         for(Item item: items)

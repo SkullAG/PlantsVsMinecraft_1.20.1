@@ -10,14 +10,23 @@ import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BiomeTags;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import net.skullag.plantsvsminecraft.PlantsVsMinecraft;
+import net.skullag.plantsvsminecraft.item.ModItems;
 
 import java.util.List;
+import java.util.random.RandomGenerator;
 
 public abstract class PlantEntity extends MobEntity {
     protected final float HOSTILITY_RANGE = 20;
@@ -30,9 +39,23 @@ public abstract class PlantEntity extends MobEntity {
         return FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, entityFactory);
     }
 
+    public EntityDimensions getDimensions() {
+        return  this.getType().getDimensions();
+    }
+
     @Override
     protected void initGoals() {
         initGoals(1);
+    }
+
+    @Override
+    public double getMountedHeightOffset() {
+        return this.getDimensions().height;
+    }
+
+    @Override
+    public double getHeightOffset() {
+        return 0.25;
     }
 
     @Override
@@ -44,7 +67,7 @@ public abstract class PlantEntity extends MobEntity {
                 this.damage(this.getDamageSources().onFire(), 1.0F);
             }
 
-            if (this.isOnGround()) {
+            if (this.isOnGround() && !this.isInsideWaterOrBubbleColumn()) {
                 Vec3d pos = this.getPos();
                 this.setPos(MathHelper.floor(pos.x) + 0.5f, pos.y, MathHelper.floor(pos.z) + 0.5f);
             }
@@ -57,7 +80,6 @@ public abstract class PlantEntity extends MobEntity {
 
             if (world.getBiome(this.getBlockPos()).getKey().toString().contains("snowy") &&
                     world.isSkyVisible(this.getBlockPos())) {
-                PlantsVsMinecraft.LOGGER.info("cold!");
 
                 if (world.isRaining()) {
                     this.setInPowderSnow(true);
@@ -70,6 +92,27 @@ public abstract class PlantEntity extends MobEntity {
 
             makeMonstersHostile();
         }
+    }
+
+    @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        ItemStack itemStack = player.getStackInHand(hand);
+
+        if (itemStack.isOf(ModItems.NUTRIENT)) {
+            //PlantsVsMinecraft.LOGGER.info("nutrient!");
+            if (!this.getWorld().isClient && this.nutrientUsed()) {
+                itemStack.damage(1, player, playerx -> playerx.sendToolBreakStatus(hand));
+                return ActionResult.SUCCESS;
+            } else {
+                return ActionResult.CONSUME;
+            }
+        } else {
+            return super.interactMob(player, hand);
+        }
+    }
+
+    public boolean nutrientUsed() {
+        return false;
     }
 
     protected void makeMonstersHostile() {
@@ -85,12 +128,28 @@ public abstract class PlantEntity extends MobEntity {
         }
     }
 
+    protected void generateNutrientParticles(int amount) {
+        float delta = this.getDimensions().width / 2;
+
+        var rand = RandomGenerator.getDefault();
+
+        for (int i = 0; i < amount; i++)
+        {
+            Vec3d offset = new Vec3d(rand.nextFloat(-delta, delta), 0, rand.nextFloat(-delta, delta));
+
+            Vec3d particlePos = this.getPos().add(offset);
+
+            this.getWorld().addParticle(ParticleTypes.GLOW, particlePos.x, particlePos.y, particlePos.z, 0, 1, 1);
+        }
+    }
+
     protected boolean isEntityHostilityTarget(HostileEntity entity) {
 
         LivingEntity actualTarget = entity.getTarget();
 
         return !(entity instanceof EndermanEntity) &&
-                (actualTarget == null || (actualTarget != this && actualTarget.distanceTo(entity) > this.distanceTo(entity)));
+                (actualTarget == null || !actualTarget.isAlive() ||
+                (actualTarget != this && actualTarget.distanceTo(entity) > this.distanceTo(entity)));
     }
 
     @Override

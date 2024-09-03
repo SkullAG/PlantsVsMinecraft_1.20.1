@@ -1,5 +1,7 @@
 {
   "item.plantsvsminecraft.sunpoint": "Sun Point",
+  "item.plantsvsminecraft.nutrient": "Plant Food",
+  "item.plantsvsminecraft.sunflower_seed_pack": "Sunflower Seed Pack",
 
   "itemgroup.pvm_plants": "PVM Plants"
 }
