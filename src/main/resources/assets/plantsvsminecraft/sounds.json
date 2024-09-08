@@ -1,0 +1,14 @@
+{
+  "pea_throw": {
+    "subtitle": "sounds.plantsvsminecraft.pea_throw",
+    "sounds": [
+      "plantsvsminecraft:pea_throw"
+    ]
+  },
+  "pea_hit": {
+    "subtitle": "sounds.plantsvsminecraft.pea_splat",
+    "sounds": [
+      "plantsvsminecraft:pea_splat"
+    ]
+  }
+}

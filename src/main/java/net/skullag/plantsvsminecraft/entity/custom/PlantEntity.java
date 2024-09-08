@@ -2,6 +2,7 @@ package net.skullag.plantsvsminecraft.entity.custom;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.AttackGoal;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.damage.DamageSource;
@@ -11,18 +12,14 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
-import net.skullag.plantsvsminecraft.PlantsVsMinecraft;
 import net.skullag.plantsvsminecraft.item.ModItems;
 
 import java.util.List;
@@ -41,6 +38,11 @@ public abstract class PlantEntity extends MobEntity {
 
     public EntityDimensions getDimensions() {
         return  this.getType().getDimensions();
+    }
+
+    @Override
+    public boolean canImmediatelyDespawn(double distanceSquared) {
+        return false;
     }
 
     @Override
@@ -148,6 +150,7 @@ public abstract class PlantEntity extends MobEntity {
         LivingEntity actualTarget = entity.getTarget();
 
         return !(entity instanceof EndermanEntity) &&
+                entity.canSee(this) &&
                 (actualTarget == null || !actualTarget.isAlive() ||
                 (actualTarget != this && actualTarget.distanceTo(entity) > this.distanceTo(entity)));
     }
@@ -159,8 +162,8 @@ public abstract class PlantEntity extends MobEntity {
 
     protected int initGoals(int initIndex) {
         this.goalSelector.add(initIndex, new LookAtEntityGoal(this, HostileEntity.class, 100));
-        this.goalSelector.add(initIndex++, new LookAtEntityGoal(this, PlayerEntity.class, 20));
-        this.goalSelector.add(initIndex++, new LookAroundGoal(this));
+        this.goalSelector.add(++initIndex, new LookAtEntityGoal(this, PlayerEntity.class, 20));
+        this.goalSelector.add(++initIndex, new LookAroundGoal(this));
 
         return initIndex;
     }

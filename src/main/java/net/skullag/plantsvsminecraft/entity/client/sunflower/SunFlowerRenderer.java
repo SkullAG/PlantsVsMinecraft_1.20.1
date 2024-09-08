@@ -1,4 +1,4 @@
-package net.skullag.plantsvsminecraft.entity.client;
+package net.skullag.plantsvsminecraft.entity.client.sunflower;
 
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -6,6 +6,7 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.skullag.plantsvsminecraft.PlantsVsMinecraft;
+import net.skullag.plantsvsminecraft.entity.client.ModModelLayers;
 import net.skullag.plantsvsminecraft.entity.custom.SunFlowerEntity;
 
 public class SunFlowerRenderer extends MobEntityRenderer<SunFlowerEntity, SunFlowerModel<SunFlowerEntity>> {

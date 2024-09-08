@@ -15,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
-import net.skullag.plantsvsminecraft.PlantsVsMinecraft;
 import net.skullag.plantsvsminecraft.item.ModItems;
 
 import java.util.random.RandomGenerator;
@@ -24,11 +23,13 @@ public class SunFlowerEntity extends PlantEntity{
     protected static final TrackedData<Boolean> PRODUCING_SUN = DataTracker.registerData(SunFlowerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     protected static final TrackedData<Boolean> NUTRIENTING = DataTracker.registerData(SunFlowerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-    protected int COOLDOWN_BETWEEN_SUNS = 24000;
+    protected int TIME_BALANCER = 25;
+    protected int ORIGINAL_COOLDOWN_BETWEEN_SUNS = 24000;
+
     protected int SUN_DELAY = 400;
     protected int SUN_PRODUCTION_DURATION = 500;
     protected int SUNS_PER_BATCH = 5;
-    protected int cooldownTillNextSun = COOLDOWN_BETWEEN_SUNS;
+    protected int cooldownTillNextSun = getCooldownBetweenSuns();
     protected float sunProdTimer = 0;
 
     protected int NUTRIENT_DURATION = 2000;
@@ -85,6 +86,10 @@ public class SunFlowerEntity extends PlantEntity{
         super.initDataTracker();
         this.dataTracker.startTracking(PRODUCING_SUN, false);
         this.dataTracker.startTracking(NUTRIENTING, false);
+    }
+
+    protected int getCooldownBetweenSuns() {
+        return TIME_BALANCER * ORIGINAL_COOLDOWN_BETWEEN_SUNS;
     }
 
     protected void setProducingSun(boolean value) {
@@ -187,7 +192,7 @@ public class SunFlowerEntity extends PlantEntity{
 
         this.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, RandomGenerator.getDefault().nextFloat(0.01f, 0.04f));
 
-        cooldownTillNextSun = COOLDOWN_BETWEEN_SUNS;
+        cooldownTillNextSun = getCooldownBetweenSuns();
     }
 
     @Override

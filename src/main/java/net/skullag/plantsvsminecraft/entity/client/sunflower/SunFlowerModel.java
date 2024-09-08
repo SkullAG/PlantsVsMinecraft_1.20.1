@@ -1,4 +1,4 @@
-package net.skullag.plantsvsminecraft.entity.client;
+package net.skullag.plantsvsminecraft.entity.client.sunflower;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
@@ -14,7 +14,7 @@ public class SunFlowerModel<T extends SunFlowerEntity> extends SinglePartEntityM
 
     public SunFlowerModel(ModelPart root) {
         this.foot = root.getChild("Foot");
-		this.head = foot.getChild("Stem").getChild("Stem2").getChild("Neck");
+		this.head = foot.getChild("Stem").getChild("Stem2").getChild("Neck").getChild("Head");
     }
 
     public static TexturedModelData getTexturedModelData() {

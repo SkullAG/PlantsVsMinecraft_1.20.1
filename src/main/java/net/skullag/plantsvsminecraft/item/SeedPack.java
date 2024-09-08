@@ -1,6 +1,5 @@
 package net.skullag.plantsvsminecraft.item;
 
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -12,22 +11,19 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.SpawnEggItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.skullag.plantsvsminecraft.entity.custom.PlantEntity;
+import net.skullag.plantsvsminecraft.sound.ModSounds;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Map;
-import java.util.Objects;
 
 public class SeedPack extends Item {
     private final EntityType<?> type;
@@ -81,6 +77,10 @@ public class SeedPack extends Item {
                     )
                             != null) {
                 itemStack.decrement(1);
+
+                world.playSound(null, blockPos2, SoundEvents.ITEM_CROP_PLANT,
+                        SoundCategory.NEUTRAL, 2f, 1f);
+
                 world.emitGameEvent(context.getPlayer(), GameEvent.ENTITY_PLACE, blockPos);
             }
 
@@ -92,7 +92,7 @@ public class SeedPack extends Item {
         if (nbt != null && nbt.contains("EntityTag", NbtElement.COMPOUND_TYPE)) {
             NbtCompound nbtCompound = nbt.getCompound("EntityTag");
             if (nbtCompound.contains("id", NbtElement.STRING_TYPE)) {
-                return (EntityType<?>)EntityType.get(nbtCompound.getString("id")).orElse(this.type);
+                return EntityType.get(nbtCompound.getString("id")).orElse(this.type);
             }
         }
 

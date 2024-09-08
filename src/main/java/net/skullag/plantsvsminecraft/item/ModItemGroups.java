@@ -15,7 +15,10 @@ public class ModItemGroups {
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.pvm_plants")).icon(() -> new ItemStack(ModItems.SUN_POINT)).entries((displayContext, entries) -> {
                 entries.add(ModItems.SUN_POINT);
                 entries.add(ModItems.NUTRIENT);
+                entries.add(ModItems.PEA);
                 entries.add(ModItems.SUNFLOWER_SEED_PACK);
+                entries.add(ModItems.PEASHOOTER_SEED_PACK);
+                entries.add(ModItems.WALLNUT_SEED_PACK);
             }).build());
 
     public static void registerItemGroups () {

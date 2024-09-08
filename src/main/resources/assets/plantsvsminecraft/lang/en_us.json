@@ -2,6 +2,12 @@
   "item.plantsvsminecraft.sunpoint": "Sun Point",
   "item.plantsvsminecraft.nutrient": "Plant Food",
   "item.plantsvsminecraft.sunflower_seed_pack": "Sunflower Seed Pack",
+  "item.plantsvsminecraft.peashooter_seed_pack": "Peashooter Seed Pack",
+  "item.plantsvsminecraft.wallnut_seed_pack": "Wall-Nut Seed Pack",
+  "item.plantsvsminecraft.pea": "Pea",
 
-  "itemgroup.pvm_plants": "PVM Plants"
+  "itemgroup.pvm_plants": "PVM Plants",
+
+  "sounds.plantsvsminecraft.pea_throw": "Pea Throw",
+  "sounds.plantsvsminecraft.pea_splat": "Pea Splat"
 }

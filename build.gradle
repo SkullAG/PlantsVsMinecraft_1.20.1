@@ -36,6 +36,7 @@ dependencies {
 processResources {
 	inputs.property "version", project.version
 
+	duplicatesStrategy(DuplicatesStrategy.INCLUDE)
 	filesMatching("fabric.mod.json") {
 		expand "version": project.version
 	}
@@ -56,6 +57,7 @@ java {
 }
 
 jar {
+	duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 	from("LICENSE") {
 		rename { "${it}_${project.base.archivesName.get()}"}
 	}
