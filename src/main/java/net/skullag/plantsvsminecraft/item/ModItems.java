@@ -21,6 +21,8 @@ public class ModItems {
             new SeedPack(ModEntities.PEASHOOTER, new FabricItemSettings()));
     public static final Item WALLNUT_SEED_PACK = registerItem("wallnut_seed_pack",
             new SeedPack(ModEntities.WALLNUT, new FabricItemSettings()));
+    public static final Item POTATOMINE_SEED_PACK = registerItem("potatomine_seed_pack",
+            new SeedPack(ModEntities.POTATOMINE, new FabricItemSettings()));
 
     private static void addItemsToItemGroup(FabricItemGroupEntries entries, Item... items) {
         for(Item item: items)

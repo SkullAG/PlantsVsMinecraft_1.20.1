@@ -9,6 +9,7 @@ import net.skullag.plantsvsminecraft.PlantsVsMinecraft;
 public class ModSounds {
     public static final SoundEvent PEA_THROW_SOUND = registerSoundEvent("pea_throw");
     public static final SoundEvent PEA_HIT_SOUND = registerSoundEvent("pea_hit");
+    public static final SoundEvent POTATO_EXPLOSION = registerSoundEvent("potato_explosion");
 
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = new Identifier(PlantsVsMinecraft.MOD_ID, name);

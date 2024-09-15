@@ -192,7 +192,7 @@ public class PeaShooterEntity extends PlantEntity {
             this.lookAt(EntityAnchorArgumentType.EntityAnchor.EYES, new Vec3d(this.lookControl.getLookX(), this.lookControl.getLookY(), this.lookControl.getLookZ()));
         }
 
-        this.playSound(ModSounds.PEA_THROW_SOUND, 10f, 1f);
+        this.playSound(ModSounds.PEA_THROW_SOUND, 1f, 1f);
 
         cooldownTillNextShot = COOLDOWN_BETWEEN_SHOTS;
     }

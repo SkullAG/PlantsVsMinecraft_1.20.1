@@ -11,15 +11,19 @@ import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BiomeTags;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.skullag.plantsvsminecraft.item.ModItemGroups;
 import net.skullag.plantsvsminecraft.item.ModItems;
 
 import java.util.List;
@@ -103,7 +107,21 @@ public abstract class PlantEntity extends MobEntity {
         if (itemStack.isOf(ModItems.NUTRIENT)) {
             //PlantsVsMinecraft.LOGGER.info("nutrient!");
             if (!this.getWorld().isClient && this.nutrientUsed()) {
+                itemStack.decrement(1);
+                return ActionResult.SUCCESS;
+            } else {
+                return ActionResult.CONSUME;
+            }
+        } else if (itemStack.isIn(ItemTags.SHOVELS)) {
+            //PlantsVsMinecraft.LOGGER.info("nutrient!");
+            if (!this.getWorld().isClient && this.nutrientUsed()) {
                 itemStack.damage(1, player, playerx -> playerx.sendToolBreakStatus(hand));
+
+                this.playSound(this.getSteppingBlockState().getSoundGroup().getBreakSound(), 1f, 1f);
+
+                this.dead = true;
+                this.discard();
+
                 return ActionResult.SUCCESS;
             } else {
                 return ActionResult.CONSUME;
@@ -141,7 +159,7 @@ public abstract class PlantEntity extends MobEntity {
 
             Vec3d particlePos = this.getPos().add(offset);
 
-            this.getWorld().addParticle(ParticleTypes.GLOW, particlePos.x, particlePos.y, particlePos.z, 0, 1, 1);
+            this.getWorld().addParticle(ParticleTypes.GLOW, particlePos.x, particlePos.y, particlePos.z, 0, 1, 0);
         }
     }
 

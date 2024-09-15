@@ -19,6 +19,7 @@ public class ModItemGroups {
                 entries.add(ModItems.SUNFLOWER_SEED_PACK);
                 entries.add(ModItems.PEASHOOTER_SEED_PACK);
                 entries.add(ModItems.WALLNUT_SEED_PACK);
+                entries.add(ModItems.POTATOMINE_SEED_PACK);
             }).build());
 
     public static void registerItemGroups () {

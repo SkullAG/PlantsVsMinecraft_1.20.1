@@ -12,13 +12,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.skullag.plantsvsminecraft.PlantsVsMinecraft;
 import net.skullag.plantsvsminecraft.item.ModItems;
 
 public class WallNutEntity extends PlantEntity{
     protected static float MAX_HEALTH = 600;
     protected static float INITIAL_HEALTH = 300;
 
-    protected static Item OWN_GENERATOR = ModItems.WALLNUT_SEED_PACK;
+    public static Item getOwnGenerator() {
+        return ModItems.WALLNUT_SEED_PACK;
+    }
 
     public WallNutEntity(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
@@ -40,9 +43,10 @@ public class WallNutEntity extends PlantEntity{
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
-        if (itemStack.isOf(OWN_GENERATOR) && this.getHealth() < MAX_HEALTH / 4) {
+        if (itemStack.isOf(getOwnGenerator()) && this.getHealth() < MAX_HEALTH / 4) {
             if (!this.getWorld().isClient) {
                 resetHealth();
+                itemStack.decrement(1);
                 return ActionResult.SUCCESS;
             } else {
                 return ActionResult.CONSUME;

@@ -9,6 +9,8 @@ import net.skullag.plantsvsminecraft.PlantsVsMinecraft;
 import net.skullag.plantsvsminecraft.entity.ModEntities;
 import net.skullag.plantsvsminecraft.entity.client.peashooter.PeaShooterModel;
 import net.skullag.plantsvsminecraft.entity.client.peashooter.PeaShooterRenderer;
+import net.skullag.plantsvsminecraft.entity.client.potatomine.PotatoMineModel;
+import net.skullag.plantsvsminecraft.entity.client.potatomine.PotatoMineRenderer;
 import net.skullag.plantsvsminecraft.entity.client.sunflower.SunFlowerModel;
 import net.skullag.plantsvsminecraft.entity.client.sunflower.SunFlowerRenderer;
 import net.skullag.plantsvsminecraft.entity.client.wallnut.WallNutModel;
@@ -24,6 +26,9 @@ public class ModModelLayers {
     public static final EntityModelLayer WALLNUT =
             new EntityModelLayer(new Identifier(PlantsVsMinecraft.MOD_ID, "wallnut"), "main");
 
+    public static final EntityModelLayer POTATOMINE =
+            new EntityModelLayer(new Identifier(PlantsVsMinecraft.MOD_ID, "potatomine"), "main");
+
     public static void registerModelLayers () {
         EntityRendererRegistry.register(ModEntities.SUNFLOWER, SunFlowerRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(SUNFLOWER, SunFlowerModel::getTexturedModelData);
@@ -33,6 +38,9 @@ public class ModModelLayers {
 
         EntityRendererRegistry.register(ModEntities.WALLNUT, WallNutRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(WALLNUT, WallNutModel::getTexturedModelData);
+
+        EntityRendererRegistry.register(ModEntities.POTATOMINE, PotatoMineRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(POTATOMINE, PotatoMineModel::getTexturedModelData);
 
         EntityRendererRegistry.register(ModEntities.PEA_PROJECTILE, FlyingItemEntityRenderer::new);
     }

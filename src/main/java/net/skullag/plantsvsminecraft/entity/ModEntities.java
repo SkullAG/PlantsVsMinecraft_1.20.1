@@ -7,6 +7,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.skullag.plantsvsminecraft.PlantsVsMinecraft;
 import net.skullag.plantsvsminecraft.entity.custom.PeaShooterEntity;
+import net.skullag.plantsvsminecraft.entity.custom.PotatoMineEntity;
 import net.skullag.plantsvsminecraft.entity.custom.SunFlowerEntity;
 import net.skullag.plantsvsminecraft.entity.custom.WallNutEntity;
 import net.skullag.plantsvsminecraft.entity.custom.projectiles.PeaProjectileEntity;
@@ -18,6 +19,8 @@ public class ModEntities {
             new Identifier(PlantsVsMinecraft.MOD_ID, "peashooter"), PeaShooterEntity.builder().build());
     public static final EntityType<WallNutEntity> WALLNUT = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(PlantsVsMinecraft.MOD_ID, "wallnut"), WallNutEntity.builder().build());
+    public static final EntityType<PotatoMineEntity> POTATOMINE = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(PlantsVsMinecraft.MOD_ID, "potatomine"), PotatoMineEntity.builder().build());
 
     public static final EntityType<PeaProjectileEntity> PEA_PROJECTILE = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(PlantsVsMinecraft.MOD_ID, "pea_projectile"), PeaProjectileEntity.builder().build());
@@ -28,5 +31,6 @@ public class ModEntities {
             FabricDefaultAttributeRegistry.register(SUNFLOWER, SunFlowerEntity.createSunFlowerAttributes());
             FabricDefaultAttributeRegistry.register(PEASHOOTER, PeaShooterEntity.createPeaShooterAttributes());
             FabricDefaultAttributeRegistry.register(WALLNUT, WallNutEntity.createWallNutAttributes());
+            FabricDefaultAttributeRegistry.register(POTATOMINE, PotatoMineEntity.createPotatoMineAttributes());
         }
 }

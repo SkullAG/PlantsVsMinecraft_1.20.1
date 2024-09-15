@@ -10,5 +10,11 @@
     "sounds": [
       "plantsvsminecraft:pea_splat"
     ]
+  },
+  "potato_explosion": {
+    "subtitle": "sounds.plantsvsminecraft.potato_explosion",
+    "sounds": [
+      "plantsvsminecraft:potato_explosion"
+    ]
   }
 }

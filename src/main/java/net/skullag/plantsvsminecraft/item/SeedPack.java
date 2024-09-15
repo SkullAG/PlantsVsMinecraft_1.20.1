@@ -6,8 +6,10 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -17,6 +19,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
@@ -33,6 +36,23 @@ public class SeedPack extends Item {
         super(settings);
 
         this.type = type;
+    }
+
+    @Override
+    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+        if(entity instanceof PlantEntity plantEntity)
+        {
+            ActionResult result = plantEntity.interactMob(user, hand);
+
+            if(result.isAccepted())
+            {
+                entity.playSound(SoundEvents.ITEM_CROP_PLANT, 2f, 1f);
+            }
+
+            return result;
+        }
+
+        return super.useOnEntity(stack, user, entity, hand);
     }
 
     @Override

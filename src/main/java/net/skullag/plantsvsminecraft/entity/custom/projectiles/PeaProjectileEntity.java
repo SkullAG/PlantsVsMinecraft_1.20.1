@@ -87,6 +87,7 @@ public class PeaProjectileEntity extends ThrownItemEntity {
         for (int i = 0; i < 8; i++) {
             this.getWorld().addParticle(
                     particleEffect,
+                    true,
                     this.getX(),
                     this.getY(),
                     this.getZ(),
